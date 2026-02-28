@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ANMED – Riorganizzazione Laboratori Campania</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0f1923;
+    --red: #c0392b;
+    --red-light: #e74c3c;
+    --green: #1a6b3c;
+    --green-light: #27ae60;
+    --gold: #b7860b;
+    --gold-light: #f0b429;
+    --blue: #1a3a5c;
+    --blue-light: #2980b9;
+    --paper: #faf7f2;
+    --paper-warm: #f2ede4;
+    --border: #d4c9b5;
+    --urgent: #8b0000;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  body {
+    background: var(--paper);
+    font-family: 'Source Sans 3', sans-serif;
+    color: var(--ink);
+    min-height: 100vh;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    border: 4px solid var(--red);
+    margin: 20px 24px 0;
+    padding: 22px 32px 18px;
+    border-radius: 6px;
+    background: white;
+    text-align: center;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    font-weight: 900;
+    color: var(--red);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    line-height: 1.2;
+  }
+  .hero h2 {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--red);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-top: 8px;
+  }
+  .hero-meta { margin-top: 8px; font-size: 11px; color: #888; }
+
+  /* PAGE */
+  .page { max-width: 1280px; margin: 0 auto; padding: 16px 24px 28px; }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+  /* CARDS */
+  .section-card { border-radius: 5px; border: 1.5px solid; overflow: hidden; margin-bottom: 14px; }
+  .section-card .s-head { padding: 9px 14px; display: flex; align-items: center; gap: 8px; }
+  .section-card .s-head .icon { font-size: 18px; }
+  .section-card .s-head h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 15px; font-weight: 900; letter-spacing: 0.8px;
+    text-transform: uppercase;
+  }
+  .section-card .s-body { padding: 10px 14px 12px; }
+
+  .risk { border-color: var(--red); }
+  .risk .s-head { background: var(--red); color: white; }
+  .risk .s-body { background: #fff8f8; }
+
+  .adv { border-color: var(--green); }
+  .adv .s-head { background: var(--green); color: white; }
+  .adv .s-body { background: #f4fbf7; }
+
+  .legal { border-color: var(--blue); }
+  .legal .s-head { background: var(--blue); color: white; }
+  .legal .s-body { background: #f5f8fc; }
+
+  .gold-card { border-color: var(--gold); }
+  .gold-card .s-head { background: var(--gold); color: white; }
+  .gold-card .s-body { background: #fffbf0; }
+
+  /* ITEMS */
+  .item { display: flex; gap: 8px; margin-bottom: 8px; align-items: flex-start; font-size: 12px; line-height: 1.45; }
+  .item:last-child { margin-bottom: 0; }
+  .dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; margin-top: 4px; }
+  .dot-red   { background: var(--red); }
+  .dot-green { background: var(--green-light); }
+  .dot-blue  { background: var(--blue-light); }
+  .dot-gold  { background: var(--gold); }
+  .item strong { font-weight: 700; color: var(--ink); }
+  .item .sub   { color: #555; }
+
+  /* CONCENTRATION DATA */
+  .data-row { display: flex; gap: 8px; margin-bottom: 7px; align-items: center; flex-wrap: wrap; }
+  .asl-chip { font-size: 10.5px; font-weight: 700; padding: 3px 8px; border-radius: 2px; background: var(--ink); color: white; white-space: nowrap; }
+  .cr-val { font-size: 10.5px; font-weight: 600; color: var(--red); }
+  .cr-bar { flex: 1; height: 6px; background: #eee; border-radius: 3px; overflow: hidden; min-width: 60px; }
+  .cr-bar-fill { height: 100%; background: linear-gradient(90deg, var(--gold-light), var(--red)); border-radius: 3px; }
+  .cr-warning { font-size: 10px; color: var(--red); font-weight: 700; }
+
+  /* LAW BOX */
+  .law-box { background: linear-gradient(135deg,#eef4fb,#f5f8fc); border: 1.5px solid var(--blue-light); border-radius: 5px; padding: 10px 14px; margin-bottom: 8px; }
+  .law-box .law-title { font-size: 11px; font-weight: 700; color: var(--blue); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; }
+  .law-box p { font-size: 11.5px; line-height: 1.5; color: #333; }
+  .law-box strong { color: var(--blue); }
+
+  /* COMPARE */
+  .compare-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 8px; }
+  .compare-cell { border-radius: 4px; padding: 9px 11px; font-size: 11px; }
+  .compare-cell.bad  { background:#fff2f2; border:1px solid #ffc9c9; }
+  .compare-cell.good { background:#f0faf4; border:1px solid #a3d9b8; }
+  .compare-cell .cc-title { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; }
+  .compare-cell.bad  .cc-title { color: var(--red); }
+  .compare-cell.good .cc-title { color: var(--green); }
+  .compare-cell ul { padding-left:0; list-style:none; }
+  .compare-cell ul li { margin-bottom: 4px; padding-left: 14px; position: relative; line-height: 1.4; }
+  .compare-cell ul li::before { position:absolute; left:0; font-size:10px; top:1px; }
+  .compare-cell.bad  ul li::before { content:"✕"; color:var(--red); }
+  .compare-cell.good ul li::before { content:"✓"; color:var(--green); }
+
+  /* CTA */
+  .cta-bar { margin-top: 16px; background: var(--urgent); color: white; border-radius: 5px; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+  .cta-bar .cta-left h4 { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 900; color: var(--gold-light); }
+  .cta-bar .cta-left p { font-size: 12px; margin-top: 3px; color: #ffcccc; line-height: 1.4; }
+  .cta-right { display:flex; gap:12px; flex-wrap:wrap; align-items:center; }
+  .cta-pill { background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); color: white; font-size: 10.5px; font-weight: 600; padding: 6px 13px; border-radius: 20px; letter-spacing: 0.5px; }
+
+  /* FOOTER */
+  .footer { margin-top: 16px; font-size: 10px; color: #999; text-align: center; padding-bottom: 8px; }
+  .footer strong { color: var(--ink); }
+
+  @media print {
+    body { background: white; }
+    .hero { margin: 10px 10px 0; }
+    .page { padding: 10px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <h1>Riorganizzazione dei Laboratori di Analisi in Campania</h1>
+  <h2>Analisi e Richiesta di Incontro Urgente</h2>
+
+</div>
+
+<div class="page">
+<div class="two-col">
+
+  <!-- ═══════════ COLONNA SINISTRA: RISCHI ═══════════ -->
+  <div>
+
+    <!-- RISCHIO 1 -->
+    <div class="section-card risk">
+      <div class="s-head">
+        <span class="icon">📊</span>
+        <h4>RISCHIO 1 — Concentrazione oligopolistica già in corso</h4>
+      </div>
+      <div class="s-body">
+        <p style="font-size:11px;color:#666;margin-bottom:8px">Dati SO.RE.SA 2024 · soglia critica CR3 &gt; 50%</p>
+        <div class="data-row">
+          <span class="asl-chip">ASL NA1</span>
+          <span class="cr-val">CR3 52,58% · CR5 62,57%</span>
+          <div class="cr-bar"><div class="cr-bar-fill" style="width:62%"></div></div>
+          <span class="cr-warning">⚠ OLTRE SOGLIA</span>
+        </div>
+        <div class="data-row">
+          <span class="asl-chip">ASL SA</span>
+          <span class="cr-val">CR3 54,23% · CR5 61,53%</span>
+          <div class="cr-bar"><div class="cr-bar-fill" style="width:61%"></div></div>
+          <span class="cr-warning">⚠ OLTRE SOGLIA</span>
+        </div>
+        <div class="data-row">
+          <span class="asl-chip">ASL BN</span>
+          <span class="cr-val">CR5 60,99%</span>
+          <div class="cr-bar"><div class="cr-bar-fill" style="width:60%"></div></div>
+          <span class="cr-warning">⚠ 3 op. al 40%</span>
+        </div>
+        <div class="item" style="margin-top:8px">
+          <div class="dot dot-red"></div>
+          <div><strong>La premialità senza massimale per beneficiario</strong> concentra risorse su chi ha già grandi volumi, sottraendo budget alle strutture medio-piccole e spingendole alla svendita. <span class="sub">Quando un piccolo laboratorio perde il budget SSN in convenzione, non è solo una questione concorrenziale: è il cittadino che perde la prestazione vicino a casa e si trova costretto a percorrere chilometri per un semplice prelievo. I LEA smettono di essere accessibili nella realtà quotidiana delle persone, non solo sulla carta.</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RISCHIO 2 -->
+    <div class="section-card risk">
+      <div class="s-head">
+        <span class="icon">🏦</span>
+        <h4>RISCHIO 2 — Deriva finanziaria: private equity e multinazionali</h4>
+      </div>
+      <div class="s-body">
+        <div class="item">
+          <div class="dot dot-red"></div>
+          <div><strong>I mega-consorzi non creano efficienza pubblica.</strong> <span class="sub">Il rimborso SSN è identico per 10.000 o 100.000 analisi dello stesso esame: non esistono sconti sulla quantità. L'economia di scala non riduce la spesa pubblica — rende il settore diagnostico appetibile per investitori finanziari.</span></div>
+        </div>
+        <div class="item">
+          <div class="dot dot-red"></div>
+          <div><strong>Schema «acquisire, comprimere, abbandonare»:</strong> <span class="sub">Il private equity entra, comprime i costi del lavoro, estrae margine, poi esce. È già accaduto nella sanità britannica, nelle case di cura statunitensi, nella distribuzione farmaceutica europea. La diagnostica italiana è il prossimo obiettivo documentato.</span></div>
+        </div>
+        <div class="item">
+          <div class="dot dot-red"></div>
+          <div><strong>Le «note tecniche» diventano leve di mercato:</strong> <span class="sub">Circolari amministrative con effetti strategici irreversibili — «cedi ora o perdi l'accreditamento» — adottate senza presidio politico e senza valutazione d'impatto ex ante sui territori.</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RISCHIO 3 -->
+    <div class="section-card risk">
+      <div class="s-head">
+        <span class="icon">🧬</span>
+        <h4>RISCHIO 3 — Trasporto campioni: sicurezza clinica, biodati e CO₂</h4>
+      </div>
+      <div class="s-body">
+        <div class="item">
+          <div class="dot dot-red"></div>
+          <div><strong>I campioni percorrono centinaia di chilometri — fino a fuori regione e fuori nazione.</strong> <span class="sub">La centralizzazione in hub lontani altera i campioni biologici, i cui parametri variano durante il tragitto: la diagnosi che arriva al medico non riflette più fedelmente lo stato del paziente al momento del prelievo.</span></div>
+        </div>
+        <div class="item">
+          <div class="dot dot-red"></div>
+          <div><strong>I biodati sono la nuova materia prima strategica.</strong> <span class="sub">Chi centralizza le analisi centralizza anche i biodati. Campioni aggregati a scala industriale alimentano biobank commerciali, profilazioni e modelli predittivi monetizzabili — senza che il cittadino sappia dove vada il suo campione, chi lo elabori né per quanto tempo venga conservato.</span></div>
+        </div>
+        <div class="item">
+          <div class="dot dot-red"></div>
+          <div><strong>Impatto CO₂ non contabilizzato.</strong> <span class="sub">Il costo ambientale del trasporto su gomma — da ogni comune verso hub centralizzati, talvolta oltre i confini nazionali — non viene mai inserito nel costo reale del modello di centralizzazione.</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- fine colonna sinistra -->
+
+  <!-- ═══════════ COLONNA DESTRA ═══════════ -->
+  <div>
+
+    <!-- MILLEPROROGHE -->
+    <div class="section-card legal">
+      <div class="s-head">
+        <span class="icon">⚖️</span>
+        <h4>LA LEGGE: Milleproroghe — Opportunità per il Piano di Rientro</h4>
+      </div>
+      <div class="s-body">
+        <div class="law-box">
+          <div class="law-title">D.L. 200/2025, Art. 5 c.10-quater — Approvato Senato 25/02/2026</div>
+          <p>Il termine per la riorganizzazione dei laboratori SSN è prorogato dal <strong>31 dicembre 2025</strong> al <strong>31 dicembre 2026</strong>. La norma è ordinamentale e a neutralità finanziaria: non modifica gli obiettivi di equilibrio del SSR, non incide sui LEA, non altera i parametri finanziari su cui si valuta il Piano di Rientro.</p>
+        </div>
+        <div class="item">
+          <div class="dot dot-blue"></div>
+          <div><strong>La proroga non è un ostacolo al Piano di Rientro — è una risorsa.</strong> <span class="sub">Un parametro organizzativo prorogato dal Parlamento non è esigibile prima del 31/12/2026 e non può figurare come inadempimento nelle verifiche del Piano. Se la Campania rispetta l'equilibrio economico e i LEA, questo parametro non impedisce l'uscita dal Piano di Rientro.</span></div>
+        </div>
+        <div class="item">
+          <div class="dot dot-blue"></div>
+          <div><strong>Le tariffe su cui si fonda la riorganizzazione sono state annullate.</strong> <span class="sub">TAR Lazio Sez. III-quater n. 16370/2025 ha annullato il D.M. 25/11/2024 con efficacia differita di 365 giorni. Imporre scelte irreversibili su un quadro tariffario provvisorio espone la Regione a contenziosi evitabili.</span></div>
+        </div>
+        <div class="item">
+          <div class="dot dot-blue"></div>
+          <div><strong>Accelerare oggi è giuridicamente infondato e strategicamente rischioso.</strong> <span class="sub">Rispettare una scadenza che il Parlamento ha già spostato significa adottare scelte strutturali irreversibili in un quadro normativo ancora in evoluzione, con tariffe da ridefinire.</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RETE CONTRATTO -->
+    <div class="section-card adv">
+      <div class="s-head">
+        <span class="icon">🔗</span>
+        <h4>LA SOLUZIONE: Rete-Contratto vs Mega-Consorzio</h4>
+      </div>
+      <div class="s-body">
+        <p style="font-size:11.5px;margin-bottom:8px">La <strong>rete-contratto</strong> consente a ogni laboratorio di mantenere tutte e tre le fasi — prelievo, analisi, refertazione — restando autonomo e radicato sul territorio, senza trasporto di campioni.</p>
+        <div class="compare-row">
+          <div class="compare-cell bad">
+            <div class="cc-title">⚠ Modello Hub-Spoke / Mega-Consorzio</div>
+            <ul>
+              <li>Campioni trasportati per centinaia di km, anche fuori regione e fuori nazione</li>
+              <li>Rischio alterazione parametri durante il trasporto</li>
+              <li>Perdita della prossimità diagnostica</li>
+              <li>Accentramento biodati in mani finanziarie</li>
+              <li>Licenziamenti e desertificazione sanitaria locale</li>
+              <li>Il cittadino percorre km per una prestazione LEA</li>
+              <li>CO₂ da logistica non contabilizzata</li>
+              <li>Appetibile per private equity: acquisisce, comprime, abbandona</li>
+            </ul>
+          </div>
+          <div class="compare-cell good">
+            <div class="cc-title">✅ Rete-Contratto (proposta ANMED)</div>
+            <ul>
+              <li>Ogni laboratorio mantiene prelievo + analisi + refertazione</li>
+              <li>Nessun trasporto: qualità diagnostica intatta</li>
+              <li>Prossimità garantita: la prestazione LEA rimane vicina al cittadino</li>
+              <li>I biodati restano nel territorio</li>
+              <li>Zero CO₂ da logistica</li>
+              <li>Pluralismo dell'offerta e concorrenza reale</li>
+              <li>Posti di lavoro sanitari preservati</li>
+              <li>LEA accessibili nella vita reale, non solo sulla carta</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </div><!-- fine colonna destra -->
+</div><!-- fine two-col -->
+
+<!-- MONITORAGGI — FULL WIDTH -->
+<div class="section-card gold-card" style="margin-top:4px">
+  <div class="s-head">
+    <span class="icon">🔍</span>
+    <h4>COSA CHIEDONO I NUMERI: 3 monitoraggi urgenti</h4>
+  </div>
+  <div class="s-body" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px">
+    <div class="item">
+      <div class="dot dot-gold" style="margin-top:5px"></div>
+      <div><strong>Operatori multi-regionali, reti e consorzi:</strong> <span class="sub">Mappare chi opera in più Regioni tramite consorzi e verificare la reale distribuzione delle funzioni hub/spoke su scala sovra-regionale.</span></div>
+    </div>
+    <div class="item">
+      <div class="dot dot-gold" style="margin-top:5px"></div>
+      <div><strong>Assetti proprietari e presenze finanziarie:</strong> <span class="sub">Verificare le partecipazioni, anche indirette, di soggetti finanziari nei consorzi. Conferenza Stato-Regioni 23/03/2011: la diagnostica è funzione essenziale — non può essere governata da logiche di credito privato.</span></div>
+    </div>
+    <div class="item">
+      <div class="dot dot-gold" style="margin-top:5px"></div>
+      <div><strong>Zone di alta concentrazione:</strong> <span class="sub">Identificare le ASL in cui pochi soggetti aggregati producono assetti oligopolistici lesivi della concorrenza, della libertà di scelta del cittadino e della capillarità dell'offerta assistenziale.</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta-bar">
+  <div class="cta-left">
+    <h4>Presidente Fico — Chiediamo un incontro urgente</h4>
+    <p>Il tempo che passa è già danno: ogni settimana strutture essenziali cedono sotto la pressione tecnico-burocratica. Ogni laboratorio chiuso è un territorio impoverito, un posto di lavoro perduto, un cittadino che percorre chilometri per una prestazione che aveva sotto casa. Siamo pronti con dati, grafici, simulazioni e proposte concrete — in presenza o in videocall, subito.</p>
+  </div>
+  <div class="cta-right">
+    <span class="cta-pill">📧 <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="2d44434b426d4c43404849034459">[email&#160;protected]</a></span>
+    <span class="cta-pill">🔒 <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="86e7e8ebe3e2c6f6e3e5a8eff2">[email&#160;protected]</a></span>
+    <span class="cta-pill">🌐 www.anmed.it</span>
+  </div>
+</div>
+
+<div class="footer">
+  <strong>ANMED</strong> — Associazione Nazionale di Medicina, Diagnostica, Salute e Benessere · Via G.G. Belli 27, Roma �
